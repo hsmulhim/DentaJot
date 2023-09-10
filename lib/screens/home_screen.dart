@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dental_proj/components/appbar_home.dart';
 import 'package:dental_proj/constants/spacings.dart';
 import 'package:dental_proj/data/offers.dart';
@@ -104,14 +105,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       margin: const EdgeInsets.only(
                           right: 8, left: 8, top: 24, bottom: 12),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        // -- to do add chashed image
-                        child: Image.network(
-                          offersList[index].offer ??
-                              "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+                          borderRadius: BorderRadius.circular(20.0),
+                          // -- to do add chashed image
+                          child: CachedNetworkImage(
+                            fit: BoxFit.fill,
+                            imageUrl: offersList[index].offer ?? "",
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                          )
+                          //  Image.network(
+                          //   offersList[index].offer ??
+                          //       "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
+                          //   fit: BoxFit.fill,
+                          // ),
+                          ),
                     ),
                   ),
                 );

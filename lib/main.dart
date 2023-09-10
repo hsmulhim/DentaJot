@@ -1,4 +1,4 @@
-import 'package:dental_proj/screens/test.dart';
+import 'package:dental_proj/screens/first_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
