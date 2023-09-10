@@ -74,7 +74,7 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
               ),
               kVSpace32,
               CustomButton(
-                buttonColor: Color(0xff2D4CB9),
+                buttonColor: const Color(0xff2D4CB9),
                 text: 'Sign Up',
                 textColor: Colors.white,
                 onTap: () async {
@@ -82,20 +82,20 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
                           emailController.text.isValidEmail) &&
                       passwordController.text.isNotEmpty) {
                     final user = await supabase.auth.signUp(
-                      email: "fah22666a@gmail.com",
-                      password: "dddddd999d99!@#",
+                      email: "hessah@gmail.com",
+                      password: "ddddddddddwfg999d99!@#",
                     );
                     final userId = user.user?.id;
                     print("------");
                     await SupabaseService().addPatient(
                       Patient(
                         patientId: userId,
-                        patientName: "fahad",
-                        ptientAge: 22,
+                        patientName: "hessah",
+                        ptientAge: 23,
                       ),
                     );
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => ProfileScreen()),
+                      MaterialPageRoute(builder: (_) => const ProfileScreen()),
                     );
                   }
                 },

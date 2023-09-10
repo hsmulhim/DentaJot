@@ -28,8 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Timer? carasouelTmer;
 
   Timer getTimer() {
+    int length = offersList.length;
+    print(length);
     return Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (pageNo == 4) {
+      if (pageNo == length) {
         pageNo = 0;
       }
       pageController.animateToPage(
@@ -53,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       offersList.add(Offers.fromJson(element));
     }
     pageController = PageController(initialPage: 0, viewportFraction: 0.85);
-    // carasouelTmer = getTimer();
+    carasouelTmer = getTimer();
 
     super.initState();
   }
@@ -93,20 +95,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     // ------- timer for the cards slide -------
 
-                    // onPanDown: (d) {
-                    //   carasouelTmer?.cancel();
-                    //   carasouelTmer = null;
-                    // },
-                    // onPanCancel: () {
-                    //   carasouelTmer = getTimer();
-                    // },
+                    onPanDown: (d) {
+                      carasouelTmer?.cancel();
+                      carasouelTmer = null;
+                    },
+                    onPanCancel: () {
+                      carasouelTmer = getTimer();
+                    },
 
                     child: Container(
                       margin: const EdgeInsets.only(
                           right: 8, left: 8, top: 24, bottom: 12),
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
-                          // -- to do add chashed image
                           child: CachedNetworkImage(
                             fit: BoxFit.fill,
                             imageUrl: offersList[index].offer ?? "",
@@ -114,13 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: CircularProgressIndicator()),
                             errorWidget: (context, url, error) =>
                                 const Icon(Icons.error),
-                          )
-                          //  Image.network(
-                          //   offersList[index].offer ??
-                          //       "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
-                          //   fit: BoxFit.fill,
-                          // ),
-                          ),
+                          )),
                     ),
                   ),
                 );
@@ -152,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
             alignment: AlignmentDirectional.topEnd,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 7),
+                padding: const EdgeInsets.fromLTRB(24, 0, 24, 7),
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
@@ -193,9 +188,49 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-          )
+          ),
+          kVSpace8,
+          const LabelWidget(),
+
+          // ListView.builder(
+          //     scrollDirection: Axis.horizontal,
+          //     itemCount: 5,
+          //     itemBuilder: (contex, index) {
+          //       return Container(
+          //         height: 50,
+          //         width: 50,
+          //         decoration: const BoxDecoration(color: Colors.amber),
+          //       );
+          //     },),
         ],
       ),
+    );
+  }
+}
+
+//-------------- the label --------
+
+class LabelWidget extends StatelessWidget {
+  const LabelWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Text("Frequently Asked",
+            textAlign: TextAlign.left,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        Text("View All",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+              color: Color(0xff076fe0),
+            )),
+      ],
     );
   }
 }
