@@ -28,7 +28,7 @@ class CustomTextWidget extends StatelessWidget {
           const Text("Dont have an account?"),
           InkWell(
             onTap: () {
-              const SignUpScreen().push(context);
+               const SignUpScreen().push(context);
             },
             child: const Text(
               "Sign Up",
