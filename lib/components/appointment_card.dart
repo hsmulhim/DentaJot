@@ -1,3 +1,5 @@
+import 'package:dental_proj/Utils/extensions.dart';
+import 'package:dental_proj/constants/spacings.dart';
 import 'package:dental_proj/screens/appointment_details_Screen.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +9,8 @@ class AppointmentCard extends StatelessWidget {
     required this.doctorName,
     required this.patientCases,
     required this.appointmentDate,
-    required this.complaint, 
-    required this.result, 
+    required this.complaint,
+    required this.result,
     required this.hospitalName,
   });
 
@@ -35,50 +37,49 @@ class AppointmentCard extends StatelessWidget {
         ));
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
         child: Container(
-          color: Colors.grey[350],
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.grey[350],
+              boxShadow: const [
+                BoxShadow(color: Color(0xff2D4CB9), offset: Offset(-3, -3))
+              ]),
           height: 100,
-          width: MediaQuery.of(context).size.width,
+          width: context.getWidth - 50,
           child: Row(
             children: [
-              Icon(Icons.medical_information),
-              SizedBox(
-                width: 20,
-              ),
+              kHSpace8,
               Column(
                 children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text("Doctor name"),
+                  kVSpace32,
+                  const Text("Doctor name",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(doctorName),
                 ],
               ),
-              SizedBox(
-                width: 20,
-              ),
+              kHSpace16,
               Column(
                 children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text("patientCases"),
+                  kVSpace32,
+                  const Text("patientCases",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(patientCases),
                 ],
               ),
-              SizedBox(
-                width: 20,
-              ),
+              kHSpace16,
               Column(
                 children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text("Date"),
+                  kVSpace32,
+                  const Text("Date",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(appointmentDate),
                 ],
               ),
+              const Icon(
+                Icons.keyboard_arrow_right,
+                size: 35,
+              )
             ],
           ),
         ),

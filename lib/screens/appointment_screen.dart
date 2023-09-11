@@ -1,17 +1,18 @@
-
 import 'package:dental_proj/components/appointment_card.dart';
+import 'package:dental_proj/components/custom_header.dart';
 import 'package:dental_proj/components/text_field_widgets.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+String teethCase = "Normal";
 
 class AppointmentScreen extends StatefulWidget {
   final String teethName;
   final int teethNumber;
   final int toothId;
 
-  AppointmentScreen({
+  const AppointmentScreen({
     Key? key,
     required this.teethName,
     required this.teethNumber,
@@ -89,56 +90,123 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xff2D4CB9),
+        elevation: 0,
         title: Row(
           children: [
             Text('          ${widget.teethNumber}   ${widget.teethName}'),
           ],
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: Appointments.length,
-              itemBuilder: (context, index) {
-                final Appointment = Appointments[index];
-                return AppointmentCard(
-                  doctorName: Appointment['doctorName'],
-                  patientCases: Appointment['patientCases'],
-                  appointmentDate: Appointment['appointmentDate'],
-                  complaint: Appointment['complaint'],
-                  result: Appointment['result'],
-                  hospitalName: Appointment['hospitalName'],
-                );
-              },
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: Stack(
+          children: [
+            CustomPaint(
+              painter: HeaderCurvedContainer(),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
             ),
-          ),
-        ],
+            Positioned(
+              top: 20,
+              left: 120,
+              child: (() {
+                switch (selectedEnam) {
+                  case "Tooth Decay":
+                    return SizedBox(
+                      height: 115,
+                      width: 130,
+                      child: Image.network(
+                        'https://www12.0zz0.com/2023/09/11/00/915323398.png',
+                        fit: BoxFit.fill,
+                      ),
+                    );
+                  case "Knocked tooth":
+                    return SizedBox(
+                      height: 115,
+                      width: 130,
+                      child: Image.network(
+                        'https://www12.0zz0.com/2023/09/11/00/853267690.png',
+                        fit: BoxFit.fill,
+                      ),
+                    );
+                  case "Filling out":
+                    return SizedBox(
+                      height: 115,
+                      width: 130,
+                      child: Image.network(
+                        'https://www12.0zz0.com/2023/09/11/00/650345153.png',
+                        fit: BoxFit.fill,
+                      ),
+                    );
+                  case "Implement tooth":
+                    return SizedBox(
+                      height: 115,
+                      width: 130,
+                      child: Image.network(
+                        'https://www11.0zz0.com/2023/09/10/12/528799999.png',
+                        fit: BoxFit.fill,
+                      ),
+                    );
+                  default:
+                    return SizedBox(
+                      height: 115,
+                      width: 130,
+                      child: Image.network(
+                        'https://www11.0zz0.com/2023/09/10/12/528799999.png',
+                        fit: BoxFit.fill,
+                      ),
+                    );
+                }
+              })(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 180),
+              child: Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: Appointments.length,
+                  itemBuilder: (context, index) {
+                    final Appointment = Appointments[index];
+                    return AppointmentCard(
+                      doctorName: Appointment['doctorName'],
+                      patientCases: Appointment['patientCases'],
+                      appointmentDate: Appointment['appointmentDate'],
+                      complaint: Appointment['complaint'],
+                      result: Appointment['result'],
+                      hospitalName: Appointment['hospitalName'],
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
-        child: Icon(
+        child: const Icon(
           Icons.add,
         ),
         onPressed: () {
-          Add(context);
+          add(context);
         },
       ),
     );
   }
 
-  Future<void> Add(BuildContext context) {
+// Add
+  Future<void> add(BuildContext context) {
     return showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
         return SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               DropdownButtonFormField<String>(
@@ -155,14 +223,14 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                   );
                 }).toList(),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
-              Text(
+              const Text(
                 "Date:",
                 style: TextStyle(fontSize: 16),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ElevatedButton(
@@ -181,10 +249,10 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 },
                 child: Text(
                   "${selectedDate?.toLocal() ?? DateTime.now()}".split(' ')[0],
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               TextFieldWidget(
@@ -192,7 +260,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 hint: "Complaint",
                 controller: controllerComplaint,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               TextFieldWidget(
@@ -200,7 +268,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 hint: "Result",
                 controller: controllerResult,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               TextFieldWidget(
@@ -208,7 +276,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 hint: "Doctor Name",
                 controller: controllerDoctorName,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               TextFieldWidget(
@@ -216,7 +284,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 hint: "Hospital Name",
                 controller: controllerHospitalName,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               TextFieldWidget(
@@ -224,7 +292,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 hint: "Report",
                 controller: controllerReport,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               TextFieldWidget(
@@ -232,7 +300,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 hint: "Attachments",
                 controller: controllerAttachments,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               TextFieldWidget(
@@ -249,7 +317,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                     fetchAppointments();
                   });
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.save,
                   size: 40,
                 ),

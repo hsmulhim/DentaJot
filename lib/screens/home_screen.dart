@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getUserFunction() async {
     final userData = await SupabaseService().fetchUserData();
-
+    print("home $userData");
     setState(() {});
 
     final patietobj = Patient.fromJson(userData);
