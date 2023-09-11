@@ -10,7 +10,7 @@ import 'package:dental_proj/extensions/checks.dart';
 import 'package:dental_proj/models/patient_model.dart';
 
 class CustomSignUpContainer extends StatefulWidget {
-  const CustomSignUpContainer({Key? key});
+  const CustomSignUpContainer({super.key});
 
   @override
   State<CustomSignUpContainer> createState() => _CustomSignUpContainerState();
@@ -80,7 +80,7 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
                 future: _signUpFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
                     final error = snapshot.error.toString();
                     String errorMessage = 'An error occurred during sign-up';
@@ -95,11 +95,11 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
                       children: [
                         Text(
                           errorMessage,
-                          style: TextStyle(color: Colors.red),
+                          style: const TextStyle(color: Colors.red),
                         ),
                         kVSpace32,
                         CustomButton(
-                          buttonColor: Color(0xff2D4CB9),
+                          buttonColor: const Color(0xff2D4CB9),
                           text: 'Retry',
                           textColor: Colors.white,
                           onTap: () {
@@ -118,7 +118,7 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
                     return Column(
                       children: [
                         CustomButton(
-                          buttonColor: Color(0xff2D4CB9),
+                          buttonColor: const Color(0xff2D4CB9),
                           text: 'Sign Up',
                           textColor: Colors.white,
                           onTap: () async {

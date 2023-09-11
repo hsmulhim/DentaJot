@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:dental_proj/screens/profile_screen.dart';
+import 'package:dental_proj/screens/first_screen.dart';
 import 'package:dental_proj/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-
   bool canGoHome = false;
   StreamSubscription? listen;
 
@@ -40,7 +39,7 @@ class _AppState extends State<App> {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: canGoHome ? const ProfileScreen() : const SignInScreen(),
+          child: canGoHome ? const FirstScreen() : const SignInScreen(),
         ),
       ),
     );

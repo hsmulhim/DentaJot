@@ -1,4 +1,4 @@
-import 'package:dental_proj/screens/first_screen.dart';
+import 'package:dental_proj/auth/app.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -18,7 +18,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: FirstScreen(),
+      home: App(),
     );
   }
 }
