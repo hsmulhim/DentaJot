@@ -11,6 +11,7 @@ import 'dart:async';
 import 'package:get_storage/get_storage.dart';
 
 import 'package:url_launcher/url_launcher.dart';
+
 final box = GetStorage();
 
 List<Offers> offersList = [];
@@ -54,8 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       throw Exception('Could not launch $url');
     }
   }
- 
- 
+
   getUserFunction() async {
     final userData = await SupabaseService().fetchUserData();
 
@@ -64,9 +64,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final patietobj = Patient.fromJson(userData);
     box.write("patient", patietobj);
   }
+
   @override
-  void initState(){
-   super.initState();
+  void initState() {
+    super.initState();
 
     for (var element in OffersData) {
       offersList.add(Offers.fromJson(element));
@@ -75,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
     pageController = PageController(initialPage: 0, viewportFraction: 0.85);
     carasouelTmer = getTimer();
 
-     getUserFunction();
+    getUserFunction();
   }
 
   @override

@@ -10,7 +10,7 @@ import 'package:dental_proj/extensions/checks.dart';
 import 'package:dental_proj/models/patient_model.dart';
 
 class CustomSignUpContainer extends StatefulWidget {
-  const CustomSignUpContainer({super.key, Key? key});
+  const CustomSignUpContainer({super.key});
 
   @override
   State<CustomSignUpContainer> createState() => _CustomSignUpContainerState();
