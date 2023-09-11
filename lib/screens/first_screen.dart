@@ -1,4 +1,3 @@
-import 'package:dental_proj/screens/appointmets_screen.dart';
 import 'package:dental_proj/screens/home_screen.dart';
 import 'package:dental_proj/screens/profile_screen.dart';
 import 'package:dental_proj/screens/teeth_screen.dart';
@@ -24,7 +23,6 @@ class _FirstScreenState extends State<FirstScreen> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const TeethScreen(),
-    const AppointmentScreen(),
     const ProfileScreen(),
   ];
 

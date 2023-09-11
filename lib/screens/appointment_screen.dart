@@ -1,10 +1,11 @@
-
 import 'package:dental_proj/components/appointment_card.dart';
+import 'package:dental_proj/components/custom_header.dart';
 import 'package:dental_proj/components/text_field_widgets.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+String teethCase = "Normal";
 
 class AppointmentScreen extends StatefulWidget {
   final String teethName;
@@ -89,35 +90,102 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xff2D4CB9),
+        elevation: 0,
         title: Row(
           children: [
             Text('          ${widget.teethNumber}   ${widget.teethName}'),
           ],
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: Appointments.length,
-              itemBuilder: (context, index) {
-                final Appointment = Appointments[index];
-                return AppointmentCard(
-                  doctorName: Appointment['doctorName'],
-                  patientCases: Appointment['patientCases'],
-                  appointmentDate: Appointment['appointmentDate'],
-                  complaint: Appointment['complaint'],
-                  result: Appointment['result'],
-                  hospitalName: Appointment['hospitalName'],
-                );
-              },
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: Stack(
+          children: [
+            CustomPaint(
+              painter: HeaderCurvedContainer(),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
             ),
-          ),
-        ],
+            Positioned(
+              top: 20,
+              left: 120,
+
+              child: (() {
+                switch (selectedEnam) {
+                  case "Tooth Decay":
+                    return SizedBox(
+                      height: 115,
+                      width: 130,
+                      child: Image.network(
+                        'https://www12.0zz0.com/2023/09/11/00/915323398.png',
+                        fit: BoxFit.fill,
+                      ),
+                    );
+                  case "Knocked tooth":
+                    return SizedBox(
+                      height: 115,
+                      width: 130,
+                      child: Image.network(
+                        'https://www12.0zz0.com/2023/09/11/00/853267690.png',
+                         fit: BoxFit.fill,
+                      ),
+                    );
+                  case "Filling out":
+                    return SizedBox(
+                      height: 115,
+                      width: 130,
+                      child: Image.network(
+                        'https://www12.0zz0.com/2023/09/11/00/650345153.png',
+                         fit: BoxFit.fill,
+                      ),
+                    );
+                  case "Implement tooth":
+                    return SizedBox(
+                      height: 115,
+                      width: 130,
+                      child: Image.network(
+                        'https://www11.0zz0.com/2023/09/10/12/528799999.png',
+                         fit: BoxFit.fill,
+                      ),
+                    );
+                  default:
+                    return SizedBox(
+                      height: 115,
+                      width: 130,
+                      child: Image.network(
+                        'https://www11.0zz0.com/2023/09/10/12/528799999.png',
+                         fit: BoxFit.fill,
+                      ),
+                    );
+                }
+              })(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 180),
+              child: Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: Appointments.length,
+                  itemBuilder: (context, index) {
+                    final Appointment = Appointments[index];
+                    return AppointmentCard(
+                      doctorName: Appointment['doctorName'],
+                      patientCases: Appointment['patientCases'],
+                      appointmentDate: Appointment['appointmentDate'],
+                      complaint: Appointment['complaint'],
+                      result: Appointment['result'],
+                      hospitalName: Appointment['hospitalName'],
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
@@ -125,13 +193,14 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           Icons.add,
         ),
         onPressed: () {
-          Add(context);
+          add(context);
         },
       ),
     );
   }
 
-  Future<void> Add(BuildContext context) {
+// Add
+  Future<void> add(BuildContext context) {
     return showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
