@@ -8,7 +8,6 @@ import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
-
 final box = GetStorage();
 
 class ProfileScreen extends StatefulWidget {
@@ -25,10 +24,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     Patient patientobj = Patient();
     if (box.hasData("patient")) {
       patientobj = box.read("patient");
+      print("profile $patientobj");
     }
     log(patientobj.patientName.toString());
 
@@ -55,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Stack(children: [
               CustomPaint(
                 painter: HeaderCurvedContainer(),
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                 ),
