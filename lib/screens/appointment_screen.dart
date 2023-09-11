@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:dental_proj/components/appointment_card.dart';
 import 'package:dental_proj/components/custom_header.dart';
 import 'package:dental_proj/components/text_field_widgets.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 String teethCase = "Normal";
+final userId = supabase.auth.currentUser!.id;
 
 class AppointmentScreen extends StatefulWidget {
   final String teethName;
@@ -45,6 +49,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   ];
 
   List Appointments = [];
+  File? image;
 
   @override
   void initState() {
@@ -55,12 +60,33 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   Future<void> fetchAppointments() async {
     final List response = await SupabaseService().getAppontment(widget.toothId);
 
+    final filteredAppointments = response.where((appointment) {
+      return appointment['toothId'] == widget.toothId &&
+          appointment['patientId'] == userId;
+    }).toList();
+
     setState(() {
-      Appointments = response;
+      Appointments = filteredAppointments;
     });
   }
 
   Future<void> addToDatabase() async {
+    //------------------------------
+    if (image != null) {
+      await Supabase.instance.client.storage
+          .from("images")
+          .upload(image!.path, image!);
+      print("Image Upload done");
+      final imagePath = await Supabase.instance.client.storage
+          .from("images")
+          .getPublicUrl(image!.path);
+
+      /*
+          await Supabase.instance.client.from('Paitant').update({"$type":"imagePath"}).eq(....)
+          */
+    }
+    //------------------------------
+
     final Map<String, dynamic> data = {
       'appointmentDate': selectedDate?.toString(),
       'complaint': controllerComplaint.text,
@@ -72,7 +98,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
       'other': controllerOther.text,
       'patientCases': selectedEnam,
       'toothId': widget.toothId,
-      'patientId': "2beb56e0-9914-469e-b6e5-69f3f6b6ae6f",
+      'patientId': userId,
     };
 
     final response =
@@ -327,5 +353,18 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
         );
       },
     );
+  }
+
+  Future<void> _getImage() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(
+        maxWidth: 100, maxHeight: 100, source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      final imageFile = File(pickedImage.path);
+      setState(() {
+        image = imageFile;
+      });
+    }
   }
 }
