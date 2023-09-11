@@ -1,10 +1,15 @@
+import 'dart:developer';
 
 import 'package:dental_proj/components/custom_header.dart';
 import 'package:dental_proj/components/custom_profile_ditails.dart';
 import 'package:dental_proj/extensions/navigation.dart';
+import 'package:dental_proj/models/patient_model.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
+
+final box = GetStorage();
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -15,7 +20,18 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
+    Patient patientobj = Patient();
+    if (box.hasData("patient")) {
+      patientobj = box.read("patient");
+    }
+    log(patientobj.patientName.toString());
+
     return Scaffold(
         appBar: AppBar(
             backgroundColor: const Color(0xff2D4CB9),
@@ -50,29 +66,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Image.network(
                       'https://www3.0zz0.com/2023/09/08/10/230242090.png')),
               const Positioned(top: 220, left: 40, child: ProfileDetails()),
-              const Padding(
-                  padding: EdgeInsets.only(top: 350),
+              Padding(
+                  padding: const EdgeInsets.only(top: 350),
                   child: Column(
                     children: [
                       ListTile(
-                        leading: Icon(Icons.person_2_outlined),
-                        title: Text('Name:'),
+                        leading: const Icon(Icons.person_2_outlined),
+                        title: Text('Name: ${patientobj.patientName}'),
                       ),
-                      Divider(
+                      const Divider(
                         height: 1,
                         color: Colors.black87,
                       ),
                       ListTile(
-                        leading: Icon(Icons.calendar_month_outlined),
-                        title: Text('Age:'),
+                        leading: const Icon(Icons.calendar_month_outlined),
+                        title: Text('Age:${patientobj.ptientAge}'),
                       ),
-                      Divider(
+                      const Divider(
                         height: 1,
                         color: Colors.black87,
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.female_outlined),
-                        title: Text('Gender:'),
                       ),
                     ],
                   ))

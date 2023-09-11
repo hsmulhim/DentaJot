@@ -49,24 +49,22 @@ else{    await Supabase.instance.client.auth.resetPasswordForEmail(email);
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              child: const Column(
-                children: [
-                  Text(
-                    "Forgot Password?",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            const Column(
+              children: [
+                Text(
+                  "Forgot Password?",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                kVSpace16,
+                Padding(
+                  padding: EdgeInsets.only(left: 16.0),
+                  child: Text(
+                    "Enter your email and we will send 6 digit code to your email",
+                    style: TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.normal),
                   ),
-                  kVSpace16,
-                  Padding(
-                    padding: EdgeInsets.only(left: 16.0),
-                    child: Text(
-                      "Enter your email and we will send 6 digit code to your email",
-                      style: TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.normal),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             kVSpace16,
             CoustomTextField(

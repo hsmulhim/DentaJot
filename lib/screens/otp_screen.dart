@@ -49,7 +49,6 @@ class _OtpScreenState extends State<OtpScreen> {
                 text: 'Confirm Password',
                 isObscure: true,
                 controller: confirmPasswordController,
-
               ),
               ElevatedButton(
                 onPressed: () => resetPassword(context),
@@ -86,12 +85,8 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
         btnOkOnPress: () {},
       ).show();
-      /*  ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Password reset successfully.'),
-        ),
-      );*/
-      const SignInScreen().push(context);
+  
+       SignInScreen().push(context);
     } else {
       await AwesomeDialog(
         context: context,

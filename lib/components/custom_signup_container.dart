@@ -1,15 +1,16 @@
 import 'package:dental_proj/components/custom_button.dart';
 import 'package:dental_proj/components/custom_textfield.dart';
+import 'package:dental_proj/extensions/navigation.dart';
+import 'package:dental_proj/screens/first_screen.dart';
+import 'package:dental_proj/screens/signin_screen.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
-
 import 'package:dental_proj/constants/spacings.dart';
 import 'package:dental_proj/extensions/checks.dart';
 import 'package:dental_proj/models/patient_model.dart';
-import 'package:dental_proj/screens/profile_screen.dart';
 
 class CustomSignUpContainer extends StatefulWidget {
-  const CustomSignUpContainer({super.key});
+  const CustomSignUpContainer({Key? key});
 
   @override
   State<CustomSignUpContainer> createState() => _CustomSignUpContainerState();
@@ -20,6 +21,8 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
+
+  Future<void> _signUpFuture = Future.value();
 
   @override
   Widget build(BuildContext context) {
@@ -73,29 +76,71 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
                 controller: passwordController,
               ),
               kVSpace32,
-              CustomButton(
-                buttonColor: Color(0xff2D4CB9),
-                text: 'Sign Up',
-                textColor: Colors.white,
-                onTap: () async {
-                  if ((emailController.text.isNotEmpty &&
-                          emailController.text.isValidEmail) &&
-                      passwordController.text.isNotEmpty) {
-                    final user = await supabase.auth.signUp(
-                      email: "fah22666a@gmail.com",
-                      password: "dddddd999d99!@#",
+              FutureBuilder<void>(
+                future: _signUpFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    final error = snapshot.error.toString();
+                    String errorMessage = 'An error occurred during sign-up';
+                    if (error.contains('auth.users_email_key')) {
+                      errorMessage = 'Invalid email address';
+                    } else if (error
+                        .contains('Password must be at least 6 characters')) {
+                      errorMessage = 'Password must be at least 6 characters';
+                    }
+
+                    return Column(
+                      children: [
+                        Text(
+                          errorMessage,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        kVSpace32,
+                        CustomButton(
+                          buttonColor: Color(0xff2D4CB9),
+                          text: 'Retry',
+                          textColor: Colors.white,
+                          onTap: () {
+                            if ((emailController.text.isNotEmpty &&
+                                    emailController.text.isValidEmail) &&
+                                passwordController.text.isNotEmpty) {
+                              setState(() {
+                                _signUpFuture = _performSignUp();
+                              });
+                            }
+                          },
+                        ),
+                      ],
                     );
-                    final userId = user.user?.id;
-                    print("------");
-                    await SupabaseService().addPatient(
-                      Patient(
-                        patientId: userId,
-                        patientName: "fahad",
-                        ptientAge: 22,
-                      ),
-                    );
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => ProfileScreen()),
+                  } else {
+                    return Column(
+                      children: [
+                        CustomButton(
+                          buttonColor: Color(0xff2D4CB9),
+                          text: 'Sign Up',
+                          textColor: Colors.white,
+                          onTap: () async {
+                            if ((emailController.text.isNotEmpty &&
+                                    emailController.text.isValidEmail) &&
+                                passwordController.text.isNotEmpty) {
+                              setState(() {
+                                _signUpFuture = _performSignUp();
+                              });
+                            }
+                          },
+                        ),
+                        kVSpace16,
+                        InkWell(
+                            onTap: () {
+                              const SignInScreen().push(context);
+                            },
+                            child: const Text(
+                              "Already have an account?",
+                              style: TextStyle(color: Color(0xff2D4CB9)),
+                            )),
+                      ],
                     );
                   }
                 },
@@ -108,5 +153,30 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
         ),
       ),
     );
+  }
+
+  Future<void> _performSignUp() async {
+    try {
+      final user = await supabase.auth.signUp(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      final userId = user.user?.id;
+
+      if (userId != null) {
+        await SupabaseService().addPatient(
+          Patient(
+            patientId: userId,
+            patientName: nameController.text,
+            ptientAge: int.parse(ageController.text),
+          ),
+        );
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const FirstScreen()),
+        );
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 }
