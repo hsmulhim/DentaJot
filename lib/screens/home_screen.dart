@@ -3,10 +3,14 @@ import 'package:dental_proj/components/appbar_home.dart';
 import 'package:dental_proj/constants/spacings.dart';
 import 'package:dental_proj/data/offers.dart';
 import 'package:dental_proj/models/offers_model.dart';
+import 'package:dental_proj/models/patient_model.dart';
+import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:url_launcher/url_launcher.dart';
+final box = GetStorage();
 
 List<Offers> offersList = [];
 
@@ -46,16 +50,27 @@ class _HomeScreenState extends State<HomeScreen> {
       throw Exception('Could not launch $url');
     }
   }
+ 
+ 
+  getUserFunction() async {
+    final userData = await SupabaseService().fetchUserData();
 
+    setState(() {});
+
+    final patietobj = Patient.fromJson(userData);
+    box.write("patient", patietobj);
+  }
   @override
-  void initState() {
+  void initState(){
+   super.initState();
+
     for (var element in OffersData) {
       offersList.add(Offers.fromJson(element));
     }
     pageController = PageController(initialPage: 0, viewportFraction: 0.85);
     // carasouelTmer = getTimer();
 
-    super.initState();
+     getUserFunction();
   }
 
   @override

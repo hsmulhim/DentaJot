@@ -63,4 +63,19 @@ class SupabaseService {
       return false;
     }
   }
+
+  Future<Map<String, dynamic>> fetchUserData() async {
+    final user = supabase.auth.currentUser;
+    final response = await supabase
+        .from('Patient')
+        .select('patient_name , patient_age')
+        .eq('patientId', user!.id)
+        .single();
+
+    if (response.error != null) {
+      throw Exception('Error fetching user data: ${response.error}');
+    }
+
+    return response.data as Map<String, dynamic>;
+  }
 }
