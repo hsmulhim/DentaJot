@@ -37,18 +37,5 @@ HomeAppBar() {
         ],
       ),
     ),
-    actions: [
-      Padding(
-        padding: const EdgeInsets.only(right: 16),
-        child: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.abc,
-            color: Colors.grey,
-            size: 50,
-          ),
-        ),
-      ),
-    ],
   );
 }

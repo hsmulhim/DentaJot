@@ -11,7 +11,27 @@ class SupabaseService {
     await supabase.from('Patient').upsert(patient.toJson());
   }
 
-  static Future<bool> resetPassword({
+  Future fetchTeethName(int toothId) async {
+    final List response = await Supabase.instance.client
+        .from('Teeth')
+        .select('teeth_name')
+        .eq("tooth_id", toothId);
+
+    print(response.toString());
+
+    return response.first;
+  }
+
+  Future getAppontment(int toothId) async {
+    final List appontmentList = await Supabase.instance.client
+        .from("Appointment")
+        .select()
+        .eq('toothId', toothId);
+
+    return appontmentList;
+  }
+
+  Future<bool> resetPassword({
     required String email,
     required String otp,
     required String newPassword,

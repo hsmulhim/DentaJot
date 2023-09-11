@@ -66,14 +66,13 @@ class _OtpScreenState extends State<OtpScreen> {
     final String otp = otpController.text.trim();
     final String newPassword = newPasswordController.text.trim();
 
-    final bool resetSuccess = await SupabaseService.resetPassword(
+    final bool resetSuccess = await SupabaseService().resetPassword(
       email: widget.email,
       otp: otp,
       newPassword: newPassword,
     );
 
     if (resetSuccess) {
-      // ignore: use_build_context_synchronously
       await AwesomeDialog(
         context: context,
         animType: AnimType.scale,

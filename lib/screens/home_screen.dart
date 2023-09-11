@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dental_proj/components/appbar_home.dart';
 import 'package:dental_proj/constants/spacings.dart';
 import 'package:dental_proj/data/offers.dart';
@@ -22,14 +23,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final Offers offer;
   late final PageController pageController;
-  final ScrollController _scrollController = ScrollController();
+  // final ScrollController _scrollController = ScrollController();
   int pageNo = 0;
 
   Timer? carasouelTmer;
 
   Timer getTimer() {
     int length = offersList.length;
-    print(length);
+
     return Timer.periodic(const Duration(seconds: 3), (timer) {
       if (pageNo == length) {
         pageNo = 0;
@@ -43,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  //// url launcher function
   Future<void> _launchUrl(String url) async {
     if (!await launchUrl(Uri.parse(url))) {
       throw Exception('Could not launch $url');
@@ -54,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     for (var element in OffersData) {
       offersList.add(Offers.fromJson(element));
     }
+
     pageController = PageController(initialPage: 0, viewportFraction: 0.85);
     carasouelTmer = getTimer();
 
@@ -95,13 +98,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     // ------- timer for the cards slide -------
 
-                    onPanDown: (d) {
-                      carasouelTmer?.cancel();
-                      carasouelTmer = null;
-                    },
-                    onPanCancel: () {
-                      carasouelTmer = getTimer();
-                    },
+                    // onPanDown: (d) {
+                    //   carasouelTmer?.cancel();
+                    //   carasouelTmer = null;
+                    // },
+                    // onPanCancel: () {
+                    //   carasouelTmer = getTimer();
+                    // },
 
                     child: Container(
                       margin: const EdgeInsets.only(
@@ -159,29 +162,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        kVSpace8,
-                        const Text(
-                          "Click below to explore nearby clinics !!",
-                          style: TextStyle(fontSize: 16),
-                        ),
+                        // kVSpace8,
                         GestureDetector(
                           onTap: () {
                             _launchUrl(
                                 "https://www.google.com/maps/search/dental+clinic/");
                           },
                           child: Container(
-                            height: 100,
+                            height: 113,
                             width: MediaQuery.of(context).size.width,
                             decoration: const BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15)),
                               image: DecorationImage(
                                 fit: BoxFit.fill,
-                                image: AssetImage('assets/images/maps.jpeg'),
+                                image: AssetImage('assets/images/maps2.gif'),
                               ),
                             ),
                           ),
                         ),
+
+                        const Text(
+                          "Click to explore nearby clinics !!",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        kVSpace8,
                       ],
                     ),
                   ),
@@ -191,18 +196,81 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           kVSpace8,
           const LabelWidget(),
-
-          // ListView.builder(
-          //     scrollDirection: Axis.horizontal,
-          //     itemCount: 5,
-          //     itemBuilder: (contex, index) {
-          //       return Container(
-          //         height: 50,
-          //         width: 50,
-          //         decoration: const BoxDecoration(color: Colors.amber),
-          //       );
-          //     },),
+          kVSpace8,
+          const AIQuestionWidget(),
         ],
+      ),
+    );
+  }
+}
+
+//--------- this is the ai card
+
+class AIQuestionWidget extends StatelessWidget {
+  const AIQuestionWidget({
+    super.key,
+  });
+
+  // final String question;
+  // final Icon icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider.builder(
+      itemCount: 5,
+      itemBuilder: (contex, int, index) {
+        return AnimatedContainer(
+          clipBehavior: Clip.antiAlias,
+          margin: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: index.isEven
+                    ? [
+                        const Color(0xfff97b65),
+                        const Color.fromARGB(255, 252, 190, 179),
+                      ]
+                    : [
+                        const Color(0xff2b59b5),
+                        const Color.fromARGB(255, 130, 149, 186),
+                      ],
+              ),
+              borderRadius: BorderRadius.circular(20)),
+          duration: const Duration(milliseconds: 500),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  "this is a question that needs an answer?",
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.white,
+                  ),
+                ),
+                Align(
+                    alignment: Alignment.bottomRight,
+                    child: Icon(
+                      Icons.account_circle,
+                      color: Colors.white,
+                      size: 30,
+                    )),
+              ],
+            ),
+          ),
+        );
+      },
+      options: CarouselOptions(
+        height: 190.0,
+
+        // autoPlay: true,
+        aspectRatio: 16 / 9,
+        autoPlayCurve: Curves.fastOutSlowIn,
+        enableInfiniteScroll: true,
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+        viewportFraction: 0.6,
       ),
     );
   }
