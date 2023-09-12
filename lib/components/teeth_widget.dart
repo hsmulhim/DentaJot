@@ -1,5 +1,6 @@
 import 'package:dental_proj/Functions/teeth_function.dart';
 import 'package:flutter/material.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class TeethWidget extends StatelessWidget {
   const TeethWidget(
@@ -25,12 +26,15 @@ class TeethWidget extends StatelessWidget {
       top: topP,
       left: liftP,
       height: heightImg,
-      child: InkWell(
-        onTap: () async {
-          teeth_function(context, teethName, teethNumber);
-        },
-        child: Image.asset(
-          teethimg,
+      child: ZoomTapAnimation(
+        begin: 1.0,
+        child: InkWell(
+          onTap: () async {
+            teeth_function(context, teethName, teethNumber);
+          },
+          child: Image.asset(
+            teethimg,
+          ),
         ),
       ),
     );

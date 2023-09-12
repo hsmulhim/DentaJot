@@ -1,3 +1,4 @@
+import 'package:dental_proj/Utils/extensions.dart';
 import 'package:dental_proj/components/custom_button.dart';
 import 'package:dental_proj/components/custom_textfield.dart';
 import 'package:dental_proj/extensions/navigation.dart';
@@ -27,8 +28,8 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 720,
-      width: 375,
+      height: context.getHeight,
+      width: context.getWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
@@ -168,7 +169,7 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
           Patient(
             patientId: userId,
             patientName: nameController.text,
-            ptientAge: int.parse(ageController.text),
+            patientAge: int.parse(ageController.text),
           ),
         );
         Navigator.of(context).pushReplacement(

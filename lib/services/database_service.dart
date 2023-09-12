@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:dental_proj/models/patient_model.dart';
+import 'package:dental_proj/screens/appointment_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:developer';
 
@@ -64,15 +67,25 @@ class SupabaseService {
     }
   }
 
-  Future<Map> fetchUserData() async {
+  Future<Map<String, dynamic>> fetchUserData() async {
     final user = supabase.auth.currentUser;
 
     final response = await supabase
         .from('Patient')
-        .select('patient_name,patient_age,gender')
+        .select('*')
         .eq('patientId', user!.id)
         .single();
+    print("@@@@@ ${json.encode(response)}");
 
     return response;
+  }
+
+  Future getAppontmentUser() async {
+    final List appontmentList = await Supabase.instance.client
+        .from("Appointment")
+        .select()
+        .eq('appointmentId', userId);
+
+    return appontmentList;
   }
 }

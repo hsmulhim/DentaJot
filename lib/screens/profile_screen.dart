@@ -18,21 +18,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  @override
+  Patient patientobj = Patient();
   @override
   void initState() {
     super.initState();
+
+    if (box.hasData("PatientUser")) {
+      patientobj = box.read("PatientUser");
+
+   
+    }
+    log(patientobj.patientName.toString());
   }
 
   @override
   Widget build(BuildContext context) {
-    Patient patientobj = Patient();
-    if (box.hasData("patient")) {
-      patientobj = box.read("patient");
-      print("profile $patientobj");
-    }
-    log(patientobj.patientName.toString());
-
     return Scaffold(
         appBar: AppBar(
             backgroundColor: const Color(0xff2D4CB9),
@@ -81,7 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       ListTile(
                         leading: const Icon(Icons.calendar_month_outlined),
-                        title: Text('Age:${patientobj.ptientAge}'),
+                        title: Text('Age:${patientobj.patientAge}'),
                       ),
                       const Divider(
                         height: 1,

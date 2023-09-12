@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dental_proj/components/appbar_home.dart';
@@ -57,12 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getUserFunction() async {
-    final userData = await SupabaseService().fetchUserData();
+    final Map<String, dynamic> userData =
+        await SupabaseService().fetchUserData();
     print("home $userData");
     setState(() {});
 
-    final patietobj = Patient.fromJson(userData);
-    box.write("patient", patietobj);
+    final Patient patietobj = Patient.fromJson(userData);
+
+
+    box.erase();
+    box.write("PatientUser", patietobj);
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:dental_proj/screens/history_screen.dart';
 
 import 'package:dental_proj/screens/home_screen.dart';
+import 'package:dental_proj/screens/my_report_screen.dart';
 import 'package:dental_proj/screens/profile_screen.dart';
 import 'package:dental_proj/screens/teeth_screen.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _FirstScreenState extends State<FirstScreen> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const TeethScreen(),
-    const HistoryScreen(),
+    const MyReportScreen(),
     const ProfileScreen(),
   ];
 

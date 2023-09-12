@@ -1,3 +1,4 @@
+import 'package:dental_proj/Utils/extensions.dart';
 import 'package:dental_proj/components/custom_button.dart';
 import 'package:dental_proj/components/custom_text.dart';
 import 'package:dental_proj/components/custom_textfield.dart';
@@ -6,7 +7,6 @@ import 'package:dental_proj/extensions/checks.dart';
 import 'package:dental_proj/screens/first_screen.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
-
 
 class CustomSignInContainer extends StatefulWidget {
   const CustomSignInContainer({Key? key});
@@ -24,14 +24,14 @@ class _CustomSignInContainerState extends State<CustomSignInContainer> {
   @override
   void initState() {
     super.initState();
-    _signInFuture = Future.value(); 
+    _signInFuture = Future.value();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 720,
-      width: 375,
+      height: context.getHeight,
+      width: context.getWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
