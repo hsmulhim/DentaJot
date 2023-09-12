@@ -1,4 +1,4 @@
-
+import 'package:dental_proj/Utils/extensions.dart';
 import 'package:dental_proj/components/custom_signin_container.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +19,9 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Stack(
             children: [
               Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: const Color(0xff2D4CB9),
+                width: context.getWidth,
+                height: context.getHeight,
+                color: const Color(0xff6fa2cd),
               ),
               const Positioned(top: 100, child: CustomSignInContainer())
             ],

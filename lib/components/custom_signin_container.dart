@@ -1,3 +1,4 @@
+import 'package:dental_proj/Utils/extensions.dart';
 import 'package:dental_proj/components/custom_button.dart';
 import 'package:dental_proj/components/custom_text.dart';
 import 'package:dental_proj/components/custom_textfield.dart';
@@ -7,9 +8,10 @@ import 'package:dental_proj/screens/first_screen.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 
-
 class CustomSignInContainer extends StatefulWidget {
-  const CustomSignInContainer({Key? key});
+  const CustomSignInContainer({
+    super.key,
+  });
 
   @override
   State<CustomSignInContainer> createState() => _CustomSignInContainerState();
@@ -24,14 +26,14 @@ class _CustomSignInContainerState extends State<CustomSignInContainer> {
   @override
   void initState() {
     super.initState();
-    _signInFuture = Future.value(); 
+    _signInFuture = Future.value();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 720,
-      width: 375,
+      height: context.getHeight * 0.9,
+      width: context.getWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
@@ -62,7 +64,7 @@ class _CustomSignInContainerState extends State<CustomSignInContainer> {
               controller: passwordController,
             ),
             kVSpace24,
-            CustomTextWidget(),
+            const CustomTextWidget(),
             kVSpace32,
             // Use FutureBuilder to handle sign-in and display appropriate UI.
             FutureBuilder<void>(
@@ -70,17 +72,17 @@ class _CustomSignInContainerState extends State<CustomSignInContainer> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // Display a circular progress indicator while signing in.
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   // Handle the error case.
                   return Text(
                     'Error: ${snapshot.error}',
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   );
                 } else {
                   // Default state or success state.
                   return CustomButton(
-                    buttonColor: Color(0xff2D4CB9),
+                    buttonColor: const Color(0xff6fa2cd),
                     text: 'Sign In',
                     textColor: Colors.white,
                     onTap: () async {

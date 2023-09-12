@@ -45,7 +45,7 @@ class _FirstScreenState extends State<FirstScreen> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const TeethScreen(),
-    const HistoryScreen(),
+    const TimeLineScreen(),
     const ProfileScreen(),
   ];
 
@@ -55,7 +55,7 @@ class _FirstScreenState extends State<FirstScreen> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(8),
         decoration: const BoxDecoration(
-          color: Color(0xff003253),
+          color: Color(0xff6fa2cd),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(4),
             topRight: Radius.circular(4),

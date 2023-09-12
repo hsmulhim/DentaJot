@@ -35,21 +35,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: const Color(0xff003253),
-            elevation: 0,
-            leading: IconButton(
-              iconSize: 15,
-              icon: const Icon(Icons.logout),
-              onPressed: () async {
-                await supabase.auth.signOut();
-                if (context.mounted) {
-                  context.pop;
-                }
-              },
-            ),
-            actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
-            ]),
+          backgroundColor: const Color(0xff6fa2cd),
+          elevation: 0,
+          leading: IconButton(
+            iconSize: 15,
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await supabase.auth.signOut();
+              if (context.mounted) {
+                context.pop;
+              }
+            },
+          ),
+        ),
         body: SafeArea(
             top: false,
             bottom: false,

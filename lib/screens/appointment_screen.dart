@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:dental_proj/components/appointment_card.dart';
 import 'package:dental_proj/components/custom_header.dart';
 import 'package:dental_proj/components/text_field_widgets.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 String teethCase = "Normal";
@@ -42,11 +40,10 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
 
   final List<String> enamOptions = [
     'Normal',
-    'Tooth Decay',
-    'Knocked tooth',
-    'Filling out',
-    'Implement tooth',
-    'Tooth nerve',
+    'Dental Filling',
+    'Missing Tooth',
+    'Implant Tooth',
+    'Root Canal'
   ];
 
   List Appointments = [];
@@ -117,7 +114,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff2D4CB9),
+        backgroundColor: const Color(0xff6fa2cd),
         elevation: 0,
         title: Row(
           children: [
@@ -142,45 +139,53 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               left: 120,
               child: (() {
                 switch (selectedEnam) {
-                  case "Tooth Decay":
-                    return SizedBox(
-                      height: 115,
-                      width: 130,
-                      child: Image.network(
-                        'https://www12.0zz0.com/2023/09/11/00/915323398.png',
-                        fit: BoxFit.fill,
+                  case "Dental Filling":
+                    return Center(
+                      child: SizedBox(
+                        height: 120,
+                        width: 130,
+                        child: Image.network(
+                          'https://www4.0zz0.com/2023/09/11/13/923504282.png',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     );
-                  case "Knocked tooth":
-                    return SizedBox(
-                      height: 115,
-                      width: 130,
-                      child: Image.network(
-                        'https://www12.0zz0.com/2023/09/11/00/853267690.png',
-                        fit: BoxFit.fill,
+                  case "Missing Tooth":
+                    return Center(
+                      child: SizedBox(
+                        height: 120,
+                        width: 130,
+                        child: Image.network(
+                          'https://www4.0zz0.com/2023/09/11/13/172399397.png',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     );
-                  case "Filling out":
-                    return SizedBox(
-                      height: 115,
-                      width: 130,
-                      child: Image.network(
-                        'https://www12.0zz0.com/2023/09/11/00/650345153.png',
-                        fit: BoxFit.fill,
+                  case "Root Canal":
+                    return Center(
+                      child: SizedBox(
+                        height: 120,
+                        width: 130,
+                        child: Image.network(
+                          'https://www4.0zz0.com/2023/09/11/13/398775736.png',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     );
-                  case "Implement tooth":
-                    return SizedBox(
-                      height: 115,
-                      width: 130,
-                      child: Image.network(
-                        'https://www11.0zz0.com/2023/09/10/12/528799999.png',
-                        fit: BoxFit.fill,
+                  case "Implant Tooth":
+                    return Center(
+                      child: SizedBox(
+                        height: 120,
+                        width: 130,
+                        child: Image.network(
+                          'https://www4.0zz0.com/2023/09/11/13/284957738.png',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     );
                   default:
                     return SizedBox(
-                      height: 115,
+                      height: 120,
                       width: 130,
                       child: Image.network(
                         'https://www11.0zz0.com/2023/09/10/12/528799999.png',
@@ -191,7 +196,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               })(),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 180),
+              padding: const EdgeInsets.only(top: 180, left: 22),
               child: Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,

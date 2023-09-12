@@ -1,8 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:dental_proj/auth/app.dart';
 import 'package:dental_proj/constants/spacings.dart';
 import 'package:dental_proj/extensions/screen_size.dart';
-import 'package:dental_proj/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
@@ -14,7 +14,6 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: Column(
-  
         children: [
           const SizedBox(
             height: 134,
@@ -61,12 +60,12 @@ class SplashScreen extends StatelessWidget {
         ],
       ),
       backgroundColor: Colors.lightBlue,
-      nextScreen: HomeScreen(),
+      nextScreen: const App(),
       splashIconSize: 500,
       duration: 3000,
       splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.leftToRightWithFade,
-      animationDuration: const Duration(seconds: 5),
+      animationDuration: const Duration(seconds: 3),
       centered: true,
     );
   }

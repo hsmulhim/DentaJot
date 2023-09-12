@@ -1,7 +1,16 @@
 import 'package:dental_proj/constants/spacings.dart';
+import 'package:dental_proj/models/patient_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+
+final box = GetStorage();
+Patient patientobj = Patient();
 
 HomeAppBar() {
+  if (box.hasData("patient")) {
+    patientobj = box.read("patient");
+    print("profile $patientobj");
+  }
   return AppBar(
     elevation: 0,
     backgroundColor: const Color(0xfff2fbfd),
@@ -20,20 +29,18 @@ HomeAppBar() {
               width: 50,
             ),
           ),
-          kHSpace16,
-          const Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "name",
-                style: TextStyle(color: Color(0xff003253), fontSize: 16),
-              ),
-              kVSpace8,
-              Text("Description ..",
-                  style: TextStyle(color: Color(0xff003253), fontSize: 16)),
-            ],
+          kHSpace8,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              ' Welcome ${patientobj.patientName} ' ?? "User",
+              style: const TextStyle(
+                  color: Color(0xff003253),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
+          kVSpace8,
         ],
       ),
     ),

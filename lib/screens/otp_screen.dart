@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:dental_proj/components/custom_button.dart';
 import 'package:dental_proj/components/custom_textfield.dart';
 import 'package:dental_proj/constants/spacings.dart';
 import 'package:dental_proj/extensions/navigation.dart';
@@ -8,11 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-
 class OtpScreen extends StatefulWidget {
   final String email;
 
-  OtpScreen({required this.email});
+  const OtpScreen({super.key, required this.email});
 
   @override
   _OtpScreenState createState() => _OtpScreenState();
@@ -50,9 +50,16 @@ class _OtpScreenState extends State<OtpScreen> {
                 isObscure: true,
                 controller: confirmPasswordController,
               ),
-              ElevatedButton(
-                onPressed: () => resetPassword(context),
-                child: const Text('Reset Password'),
+              kVSpace32,
+              SizedBox(
+                width: 380,
+                height: 50,
+                child: CustomButton(
+                  buttonColor: const Color(0xff003253),
+                  textColor: Colors.white,
+                  text: 'Reset Password',
+                  onTap: () => resetPassword(context),
+                ),
               ),
             ],
           ),
@@ -84,8 +91,8 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
         btnOkOnPress: () {},
       ).show();
-  
-       SignInScreen().push(context);
+
+      const SignInScreen().push(context);
     } else {
       await AwesomeDialog(
         context: context,
@@ -106,6 +113,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xff6fa2cd),
         title: const Text('OTP Verification'),
       ),
       body: Padding(

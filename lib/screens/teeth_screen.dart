@@ -12,7 +12,7 @@ class TeethScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: const Color(0xff003253),
+          backgroundColor: const Color(0xff6fa2cd),
           title: const Text('Image Click Example'),
         ),
         body: const Center(

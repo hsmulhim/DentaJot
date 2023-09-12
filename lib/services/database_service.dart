@@ -75,4 +75,12 @@ class SupabaseService {
 
     return response;
   }
+
+  Future removeAppointmet(String appointmentId) async {
+    final appointmentList = await Supabase.instance.client
+        .from("Appointment")
+        .delete()
+        .match({'appointmentId': appointmentId});
+    return appointmentList;
+  }
 }
