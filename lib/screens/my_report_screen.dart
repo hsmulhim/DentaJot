@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:dental_proj/components/custom_header.dart';
+import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MyReportScreen extends StatefulWidget {
-  const MyReportScreen({super.key});
+  const MyReportScreen({super.key, required this.type});
+  final String type;
 
   @override
   State<MyReportScreen> createState() => _MyReportScreenState();
@@ -13,6 +15,22 @@ class MyReportScreen extends StatefulWidget {
 
 class _MyReportScreenState extends State<MyReportScreen> {
   File? image;
+  String? reportImageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchReportImageUrl();
+  }
+
+  Future<void> _fetchReportImageUrl() async {
+    final userData = await SupabaseService().fetchUserData();
+    final reportUrl = userData[widget.type] as String?;
+
+    setState(() {
+      reportImageUrl = reportUrl;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +38,11 @@ class _MyReportScreenState extends State<MyReportScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xff6fa2cd),
         elevation: 0,
-        title: const Text('My Report'),
+        title: Text('My ${widget.type}'),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0XFFf97b65),
-        onPressed: _getImage,
+        onPressed: () => _getImage(context),
         child: const Icon(Icons.add),
       ),
       body: SafeArea(
@@ -44,18 +62,10 @@ class _MyReportScreenState extends State<MyReportScreen> {
                 const SizedBox(
                   height: 200,
                 ),
-                image != null
-                    ? Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.5,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: FileImage(image!),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                    : const SizedBox(),
+                if (reportImageUrl != null)
+                  Center(child: Image.network(reportImageUrl!))
+                else
+                  const SizedBox(),
               ],
             ),
           ],
@@ -64,7 +74,7 @@ class _MyReportScreenState extends State<MyReportScreen> {
     );
   }
 
-  Future<void> _getImage() async {
+  Future<void> _getImage(BuildContext context) async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(
       maxWidth: 200,
@@ -77,7 +87,25 @@ class _MyReportScreenState extends State<MyReportScreen> {
       setState(() {
         image = imageFile;
       });
-      _uploadImageToSupabase();
+      await _uploadImageToSupabase();
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('تمت الإضافة بنجاح'),
+            content: Text('تمت إضافة الصورة بنجاح  .'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('موافق'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -101,10 +129,15 @@ class _MyReportScreenState extends State<MyReportScreen> {
           .from("images")
           .getPublicUrl(imagePath);
       print("3");
+
       await Supabase.instance.client
           .from('Patient')
-          .update({"report": imageUrl}).eq(
+          .update({widget.type: imageUrl}).eq(
               "patientId", Supabase.instance.client.auth.currentUser!.id);
+
+      setState(() {
+        reportImageUrl = imageUrl;
+      });
     }
   }
 }
