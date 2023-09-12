@@ -1,7 +1,8 @@
 import 'package:dental_proj/Utils/extensions.dart';
 import 'package:dental_proj/constants/spacings.dart';
-import 'package:dental_proj/screens/appointment_details_Screen.dart';
+import 'package:dental_proj/screens/summary_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class AppointmentCard extends StatelessWidget {
   const AppointmentCard({
@@ -26,7 +27,7 @@ class AppointmentCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => AppointmentDetailsScreen(
+          builder: (context) => SummaryScreen(
             doctorName: doctorName,
             patientCases: patientCases,
             appointmentDate: appointmentDate,
@@ -38,49 +39,52 @@ class AppointmentCard extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.grey[350],
-              boxShadow: const [
-                BoxShadow(color: Color(0xff2D4CB9), offset: Offset(-3, -3))
-              ]),
-          height: 100,
-          width: context.getWidth - 50,
-          child: Row(
-            children: [
-              kHSpace8,
-              Column(
-                children: [
-                  kVSpace32,
-                  const Text("Doctor name",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(doctorName),
-                ],
-              ),
-              kHSpace16,
-              Column(
-                children: [
-                  kVSpace32,
-                  const Text("patientCases",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(patientCases),
-                ],
-              ),
-              kHSpace16,
-              Column(
-                children: [
-                  kVSpace32,
-                  const Text("Date",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(appointmentDate),
-                ],
-              ),
-              const Icon(
-                Icons.keyboard_arrow_right,
-                size: 35,
-              )
-            ],
+        child: Slidable(
+          key: const ValueKey(0),
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.grey[350],
+                boxShadow: const [
+                  BoxShadow(color: Color(0xff003253), offset: Offset(-3, -3))
+                ]),
+            height: 100,
+            width: context.getWidth - 50,
+            child: Row(
+              children: [
+                kHSpace8,
+                Column(
+                  children: [
+                    kVSpace32,
+                    const Text("Doctor name",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(doctorName),
+                  ],
+                ),
+                kHSpace16,
+                Column(
+                  children: [
+                    kVSpace32,
+                    const Text("patientCases",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(patientCases),
+                  ],
+                ),
+                kHSpace16,
+                Column(
+                  children: [
+                    kVSpace32,
+                    const Text("Date",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(appointmentDate),
+                  ],
+                ),
+                const Icon(
+                  Icons.keyboard_arrow_right,
+                  size: 35,
+                )
+              ],
+            ),
           ),
         ),
       ),

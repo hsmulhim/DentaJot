@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 150,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
-                      color: const Color(0XFFc6edfa),
+                      color: const Color(0XFf6fa2cd),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         const Text(
                           "Click to explore nearby clinics !!",
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
                         kVSpace8,
                       ],

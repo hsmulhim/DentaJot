@@ -24,23 +24,23 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
         builder: (context) => OtpScreen(email: email),
       ),
     );
-    if (email.isEmpty &&
-                              !email.isValidEmail) {
+    if (email.isEmpty && !email.isValidEmail) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please Enter Valid Email'),
         ),
       );
       return;
+    } else {
+      await Supabase.instance.client.auth.resetPasswordForEmail(email);
     }
-else{    await Supabase.instance.client.auth.resetPasswordForEmail(email);
-}
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xff6fa2cd),
         title: const Text('Password Reset'),
       ),
       body: Padding(
@@ -60,8 +60,8 @@ else{    await Supabase.instance.client.auth.resetPasswordForEmail(email);
                   padding: EdgeInsets.only(left: 16.0),
                   child: Text(
                     "Enter your email and we will send 6 digit code to your email",
-                    style: TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.normal),
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
                   ),
                 ),
               ],
@@ -76,7 +76,7 @@ else{    await Supabase.instance.client.auth.resetPasswordForEmail(email);
             ),
             kVSpace64,
             CustomButton(
-              buttonColor: Color(0xff2D4CB9),
+              buttonColor: const Color(0xff003253),
               text: 'Reset Password',
               textColor: Colors.white,
               onTap: resetPassword,

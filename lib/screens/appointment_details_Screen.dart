@@ -22,11 +22,12 @@ class AppointmentDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Appointment Details'),
+        backgroundColor: const Color(0xff6fa2cd),
+        title: const Text('Appointment Details'),
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           Padding(
@@ -39,40 +40,40 @@ class AppointmentDetailsScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.medical_information),
-                      SizedBox(
+                      const Icon(Icons.medical_information),
+                      const SizedBox(
                         width: 20,
                       ),
                       Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
-                          Text("Doctor name"),
+                          const Text("Doctor name"),
                           Text(doctorName),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
-                          Text("patientCases"),
+                          const Text("patientCases"),
                           Text(patientCases),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
-                          Text("Date"),
+                          const Text("Date"),
                           Text(appointmentDate),
                         ],
                       ),
@@ -80,39 +81,39 @@ class AppointmentDetailsScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
-                          Text("Complaint"),
+                          const Text("Complaint"),
                           Text(complaint),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
-                          Text("Result"),
+                          const Text("Result"),
                           Text(result),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
-                          Text("Hospital Name"),
+                          const Text("Hospital Name"),
                           Text(hospitalName),
                         ],
                       ),

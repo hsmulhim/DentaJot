@@ -2,7 +2,6 @@ import 'package:dental_proj/components/custom_signup_container.dart';
 
 import 'package:flutter/material.dart';
 
-
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -22,13 +21,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                color: const Color(0xff2D4CB9),
+                color: const Color(0xff6fa2cd),
               ),
-               Positioned(
-                  top: 100,
-                  child: CustomSignUpContainer(
-                 
-                  ))
+              const Positioned(top: 100, child: CustomSignUpContainer())
             ],
           )),
     );

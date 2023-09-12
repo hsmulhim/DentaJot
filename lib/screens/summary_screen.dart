@@ -1,9 +1,26 @@
 import 'package:dental_proj/Utils/extensions.dart';
 import 'package:dental_proj/constants/spacings.dart';
+import 'package:dental_proj/extensions/navigation.dart';
+import 'package:dental_proj/screens/first_screen.dart';
 import 'package:flutter/material.dart';
 
 class SummaryScreen extends StatefulWidget {
-  const SummaryScreen({super.key});
+  final String doctorName;
+  final String patientCases;
+  final String appointmentDate;
+  final String complaint;
+  final String result;
+  final String hospitalName;
+
+  const SummaryScreen({
+    Key? key,
+    required this.doctorName,
+    required this.patientCases,
+    required this.appointmentDate,
+    required this.complaint,
+    required this.result,
+    required this.hospitalName,
+  }) : super(key: key);
 
   @override
   State<SummaryScreen> createState() => _SummaryScreenState();
@@ -13,34 +30,48 @@ class _SummaryScreenState extends State<SummaryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff003253),
+      backgroundColor: const Color(0xff6fa2cd),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Align(
-              alignment: Alignment.topLeft,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Appointmet",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Align(
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Appointmet",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "Summary",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                  Text(
-                    "Summary",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+                ),
+                IconButton(
+                    onPressed: () {
+                      const FirstScreen().push(context);
+                    },
+                    icon: const Icon(
+                      Icons.home_filled,
+                      color: Colors.white,
+                      size: 35,
+                    ))
+              ],
             ),
             kVSpace24,
             Align(
@@ -72,13 +103,13 @@ class _SummaryScreenState extends State<SummaryScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Doctoor",
+                              "Doctor Name",
                               style: TextStyle(
                                   color: Colors.grey[700], fontSize: 14),
                             ),
-                            const Text(
-                              "Ahmed Mohammed",
-                              style: TextStyle(fontSize: 18),
+                            Text(
+                              widget.doctorName,
+                              style: const TextStyle(fontSize: 18),
                             ),
                             kVSpace8,
                             Text(
@@ -86,9 +117,9 @@ class _SummaryScreenState extends State<SummaryScreen> {
                               style: TextStyle(
                                   color: Colors.grey[700], fontSize: 14),
                             ),
-                            const Text(
-                              "Care Clinic",
-                              style: TextStyle(fontSize: 18),
+                            Text(
+                              widget.hospitalName,
+                              style: const TextStyle(fontSize: 18),
                             ),
                           ],
                         ),
@@ -126,10 +157,10 @@ class _SummaryScreenState extends State<SummaryScreen> {
                               10,
                             ),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              'Normal Teeth',
-                              style: TextStyle(fontSize: 16),
+                              widget.patientCases,
+                              style: const TextStyle(fontSize: 16),
                             ),
                           ),
                         ),
@@ -153,11 +184,10 @@ class _SummaryScreenState extends State<SummaryScreen> {
                               10,
                             ),
                           ),
-                          child: const SingleChildScrollView(
+                          child: SingleChildScrollView(
                             child: Text(
-                              'Normal Teeth Normal Teeth Normal Teeth Normal Teeth  Normal Teeth Normal Teeth Normal Teeth Normal Teeth',
-                              // overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 16),
+                              widget.complaint,
+                              style: const TextStyle(fontSize: 16),
                             ),
                           ),
                         ),
@@ -181,11 +211,10 @@ class _SummaryScreenState extends State<SummaryScreen> {
                               10,
                             ),
                           ),
-                          child: const SingleChildScrollView(
+                          child: SingleChildScrollView(
                             child: Text(
-                              'Normal Teeth Normal Teeth Normal Teeth Normal Teeth  Normal Teeth Normal Teeth Normal Teeth Normal TeethNormal Teeth Normal Teeth Normal Teeth Normal Teeth Normal Teeth Normal Teeth Normal Teeth Normal Teeth  ',
-                              // overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 16),
+                              widget.result,
+                              style: const TextStyle(fontSize: 16),
                             ),
                           ),
                         ),

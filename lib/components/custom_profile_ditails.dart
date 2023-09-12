@@ -1,4 +1,6 @@
 import 'package:dental_proj/constants/spacings.dart';
+import 'package:dental_proj/extensions/navigation.dart';
+import 'package:dental_proj/screens/my_report_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileDetails extends StatelessWidget {
@@ -28,7 +30,9 @@ class ProfileDetails extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              const MyReportScreen().push(context);
+            },
           ),
           kHSpace8,
           InkWell(

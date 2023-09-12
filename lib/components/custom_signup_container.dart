@@ -1,3 +1,4 @@
+import 'package:dental_proj/Utils/extensions.dart';
 import 'package:dental_proj/components/custom_button.dart';
 import 'package:dental_proj/components/custom_textfield.dart';
 import 'package:dental_proj/extensions/navigation.dart';
@@ -27,8 +28,8 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 720,
-      width: 375,
+      height: context.getHeight * 0.9,
+      width: context.getWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
@@ -99,7 +100,7 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
                         ),
                         kVSpace32,
                         CustomButton(
-                          buttonColor: const Color(0xff2D4CB9),
+                          buttonColor: const Color(0xff6fa2cd),
                           text: 'Retry',
                           textColor: Colors.white,
                           onTap: () {
@@ -118,7 +119,7 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
                     return Column(
                       children: [
                         CustomButton(
-                          buttonColor: const Color(0xff2D4CB9),
+                          buttonColor: const Color(0xff6fa2cd),
                           text: 'Sign Up',
                           textColor: Colors.white,
                           onTap: () async {
@@ -137,7 +138,7 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
                               const SignInScreen().push(context);
                             },
                             child: const Text(
-                              "Already have an account?",
+                              "Already have an account? Sign In",
                               style: TextStyle(color: Color(0xff2D4CB9)),
                             )),
                       ],
@@ -145,7 +146,7 @@ class _CustomSignUpContainerState extends State<CustomSignUpContainer> {
                   }
                 },
               ),
-              kVSpace64,
+              kVSpace24,
               Image.network(
                   'https://www12.0zz0.com/2023/09/06/20/848806498.png'),
             ],
