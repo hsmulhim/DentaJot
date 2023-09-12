@@ -32,3 +32,36 @@ List OffersData = [
     "offerUrl": "https://instagram.com/evaclinics.sa?igshid=NTc4MTIwNjQ2YQ=="
   }
 ];
+
+List QuestionsData = [
+  {
+    "question": "How often should I brush my teeth?",
+    "icon":
+        "https://t4.ftcdn.net/jpg/00/92/69/15/240_F_92691500_r6KDfjAmK7TlFaTYBdrC7pUMaiBtNsU4.jpg"
+  },
+  {
+    "question": "How long should I brush my teeth for?",
+    "icon":
+        "https://t4.ftcdn.net/jpg/00/92/69/15/240_F_92691500_r6KDfjAmK7TlFaTYBdrC7pUMaiBtNsU4.jpg"
+  },
+  {
+    "question": "Should I use a manual or electric toothbrush?",
+    "icon":
+        "https://t4.ftcdn.net/jpg/00/92/69/15/240_F_92691500_r6KDfjAmK7TlFaTYBdrC7pUMaiBtNsU4.jpg"
+  },
+  {
+    "question": "Do I need to floss every day?",
+    "icon":
+        "https://t4.ftcdn.net/jpg/00/92/69/15/240_F_92691500_r6KDfjAmK7TlFaTYBdrC7pUMaiBtNsU4.jpg"
+  },
+  {
+    "question": "How often should I replace my toothbrush?",
+    "icon":
+        "https://t4.ftcdn.net/jpg/00/92/69/15/240_F_92691500_r6KDfjAmK7TlFaTYBdrC7pUMaiBtNsU4.jpg"
+  },
+  {
+    "question": "Should I use mouthwash?",
+    "icon":
+        "https://t4.ftcdn.net/jpg/00/92/69/15/240_F_92691500_r6KDfjAmK7TlFaTYBdrC7pUMaiBtNsU4.jpg"
+  }
+];

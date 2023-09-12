@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: const Color(0xff2D4CB9),
+            backgroundColor: const Color(0xff003253),
             elevation: 0,
             leading: IconButton(
               iconSize: 15,
@@ -66,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   left: 135,
                   child: Image.network(
                       'https://www3.0zz0.com/2023/09/08/10/230242090.png')),
-              const Positioned(top: 220, left: 40, child: ProfileDetails()),
+              const Positioned(top: 220, left: 20, child: ProfileDetails()),
               Padding(
                   padding: const EdgeInsets.only(top: 350),
                   child: Column(

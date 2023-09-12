@@ -1,20 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dental_proj/Utils/extensions.dart';
 import 'package:dental_proj/components/appbar_home.dart';
 import 'package:dental_proj/constants/spacings.dart';
 import 'package:dental_proj/data/offers.dart';
 import 'package:dental_proj/models/offers_model.dart';
 import 'package:dental_proj/models/patient_model.dart';
+import 'package:dental_proj/models/question_model.dart';
+import 'package:dental_proj/screens/gpt_screen.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:get_storage/get_storage.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 final box = GetStorage();
 
 List<Offers> offersList = [];
+List<Questions> questionList = [];
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -40,11 +43,13 @@ class _HomeScreenState extends State<HomeScreen> {
       if (pageNo == length) {
         pageNo = 0;
       }
-      pageController.animateToPage(
-        pageNo,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOutCirc,
-      );
+      if (pageController.hasClients) {
+        pageController.animateToPage(
+          pageNo,
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeInOutCirc,
+        );
+      }
       pageNo++;
     });
   }
@@ -73,6 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
       offersList.add(Offers.fromJson(element));
     }
 
+    for (var element in QuestionsData) {
+      questionList.add(Questions.fromJson(element));
+    }
+
     pageController = PageController(initialPage: 0, viewportFraction: 0.85);
     carasouelTmer = getTimer();
 
@@ -83,6 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     pageController.dispose();
     offersList.clear();
+    questionList.clear();
+
     super.dispose();
   }
 
@@ -227,53 +238,59 @@ class AIQuestionWidget extends StatelessWidget {
     super.key,
   });
 
-  // final String question;
-  // final Icon icon;
-
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-      itemCount: 5,
+      itemCount: questionList.length,
       itemBuilder: (contex, int, index) {
-        return AnimatedContainer(
-          clipBehavior: Clip.antiAlias,
-          margin: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: index.isEven
-                    ? [
-                        const Color(0xfff97b65),
-                        const Color.fromARGB(255, 252, 190, 179),
-                      ]
-                    : [
-                        const Color(0xff2b59b5),
-                        const Color.fromARGB(255, 130, 149, 186),
-                      ],
-              ),
-              borderRadius: BorderRadius.circular(20)),
-          duration: const Duration(milliseconds: 500),
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "this is a question that needs an answer?",
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                  ),
+        // Questions question = questionList[index];
+        return InkWell(
+          onTap: () {
+            Future<dynamic> gtpCall() {
+              return GptScreenState().sendMessage(questionList[int].question!);
+            }
+
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return PopupDialog(
+                  function: gtpCall(),
+                );
+              },
+            );
+          },
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            margin: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: index.isEven
+                      ? [
+                          const Color(0xfff97b65),
+                          const Color.fromARGB(255, 252, 190, 179),
+                        ]
+                      : [
+                          const Color(0xff2b59b5),
+                          const Color.fromARGB(255, 130, 149, 186),
+                        ],
                 ),
-                Align(
-                    alignment: Alignment.bottomRight,
-                    child: Icon(
-                      Icons.account_circle,
+                borderRadius: BorderRadius.circular(20)),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    questionList[int].question ?? "",
+                    style: const TextStyle(
+                      fontSize: 22,
                       color: Colors.white,
-                      size: 30,
-                    )),
-              ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -302,19 +319,76 @@ class LabelWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text("Frequently Asked",
-            textAlign: TextAlign.left,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-        Text("View All",
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-              color: Color(0xff076fe0),
-            )),
+        Padding(
+          padding: EdgeInsets.only(left: 26.0),
+          child: Text("Frequently Asked",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+        ),
       ],
+    );
+  }
+}
+
+class PopupDialog extends StatelessWidget {
+  const PopupDialog({super.key, required this.function});
+  final Future<dynamic> function;
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: SizedBox(
+        width: context.getWidth - 50, // Set your desired width
+        height: context.getHeight * 0.5, // Set your desired height
+        child: FutureBuilder(
+            future: function,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/robot.gif',
+                              width: 80,
+                              height: 80,
+                            ),
+                            const Text(
+                              'AI Answer',
+                              style: TextStyle(fontSize: 24.0),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20.0),
+                        SizedBox(
+                          height: context.getHeight * 0.6,
+                          child: Column(
+                            children: [
+                              Text(
+                                ResponseGTP,
+                                style: const TextStyle(fontSize: 24),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+            }),
+      ),
     );
   }
 }

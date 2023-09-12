@@ -6,6 +6,7 @@ import 'package:dental_proj/components/text_field_widgets.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 String teethCase = "Normal";
@@ -77,7 +78,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           .from("images")
           .upload(image!.path, image!);
       print("Image Upload done");
-      final imagePath = await Supabase.instance.client.storage
+      final imagePath = Supabase.instance.client.storage
           .from("images")
           .getPublicUrl(image!.path);
 
