@@ -1,7 +1,11 @@
 import 'dart:io';
+
 import 'package:dental_proj/components/appointment_card.dart';
 import 'package:dental_proj/components/custom_header.dart';
 import 'package:dental_proj/components/text_field_widgets.dart';
+import 'package:dental_proj/extensions/navigation.dart';
+import 'package:dental_proj/screens/add_appointment_screen.dart';
+
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -114,7 +118,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff6fa2cd),
+        backgroundColor: const Color(0xff2D4CB9),
         elevation: 0,
         title: Row(
           children: [
@@ -196,7 +200,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               })(),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 180, left: 22),
+              padding: const EdgeInsets.only(top: 180),
               child: Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,
@@ -224,153 +228,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           Icons.add,
         ),
         onPressed: () {
-          add(context);
+          AddAppointmentScreen(
+            teethName: widget.teethName,
+            teethNumber: widget.teethNumber,
+            toothId: widget.toothId,
+          ).push(context);
         },
       ),
     );
-  }
-
-// Add
-  Future<void> add(BuildContext context) {
-    return showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              DropdownButtonFormField<String>(
-                value: selectedEnam,
-                onChanged: (value) {
-                  setState(() {
-                    selectedEnam = value!;
-                  });
-                },
-                items: enamOptions.map((String option) {
-                  return DropdownMenuItem<String>(
-                    value: option,
-                    child: Text(option),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              const Text(
-                "Date:",
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final DateTime? picked = await showDatePicker(
-                    context: context,
-                    initialDate: selectedDate ?? DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now(),
-                  );
-                  if (picked != null && picked != selectedDate) {
-                    setState(() {
-                      selectedDate = picked;
-                    });
-                  }
-                },
-                child: Text(
-                  "${selectedDate?.toLocal() ?? DateTime.now()}".split(' ')[0],
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              TextFieldWidget(
-                title: "Complaint",
-                hint: "Complaint",
-                controller: controllerComplaint,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TextFieldWidget(
-                title: "Result",
-                hint: "Result",
-                controller: controllerResult,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TextFieldWidget(
-                title: "Doctor Name",
-                hint: "Doctor Name",
-                controller: controllerDoctorName,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TextFieldWidget(
-                title: "Hospital Name",
-                hint: "Hospital Name",
-                controller: controllerHospitalName,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TextFieldWidget(
-                title: "Report",
-                hint: "Report",
-                controller: controllerReport,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TextFieldWidget(
-                title: "Attachments",
-                hint: "Attachments",
-                controller: controllerAttachments,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TextFieldWidget(
-                title: "Other",
-                hint: "Other",
-                controller: controllerOther,
-              ),
-              IconButton(
-                onPressed: () {
-                  addToDatabase();
-                  Navigator.of(context).pop();
-
-                  setState(() {
-                    fetchAppointments();
-                  });
-                },
-                icon: const Icon(
-                  Icons.save,
-                  size: 40,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> _getImage() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(
-        maxWidth: 100, maxHeight: 100, source: ImageSource.gallery);
-
-    if (pickedImage != null) {
-      final imageFile = File(pickedImage.path);
-      setState(() {
-        image = imageFile;
-      });
-    }
   }
 }
