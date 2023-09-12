@@ -97,7 +97,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +109,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                             ),
                             Text(
                               widget.doctorName,
-                              style: const TextStyle(fontSize: 18),
+                              style: const TextStyle(fontSize: 20),
                             ),
                             kVSpace8,
                             Text(
@@ -119,7 +119,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                             ),
                             Text(
                               widget.hospitalName,
-                              style: const TextStyle(fontSize: 18),
+                              style: const TextStyle(fontSize: 20),
                             ),
                           ],
                         ),
@@ -150,7 +150,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                         Container(
                           padding: const EdgeInsets.all(8.0),
                           height: 40,
-                          width: 120,
+                          width: 130,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.black, width: 0.3),
                             borderRadius: BorderRadius.circular(
@@ -160,7 +160,9 @@ class _SummaryScreenState extends State<SummaryScreen> {
                           child: Center(
                             child: Text(
                               widget.patientCases,
-                              style: const TextStyle(fontSize: 16),
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  overflow: TextOverflow.ellipsis),
                             ),
                           ),
                         ),
@@ -177,7 +179,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                         Container(
                           padding: const EdgeInsets.all(8.0),
                           height: 120,
-                          width: 120,
+                          width: 130,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.black, width: 0.3),
                             borderRadius: BorderRadius.circular(
