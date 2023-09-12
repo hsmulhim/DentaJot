@@ -71,13 +71,15 @@ class AppointmentCard extends StatelessWidget {
                   ],
                 ),
                 kHSpace16,
-                Column(
-                  children: [
-                    kVSpace32,
-                    const Text("Date",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(appointmentDate),
-                  ],
+                Expanded(
+                  child: Column(
+                    children: [
+                      kVSpace32,
+                      const Text("Date",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text(appointmentDate),
+                    ],
+                  ),
                 ),
                 const Icon(
                   Icons.keyboard_arrow_right,

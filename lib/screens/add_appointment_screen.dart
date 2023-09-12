@@ -84,7 +84,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                color: const Color(0xff2D4CB9),
+                color: const Color(0xff6fa2cd),
               ),
               Positioned(
                   top: 100,
@@ -144,7 +144,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                         ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xff2D4CB9),
+                              const Color(0xff6fa2cd),
                             ),
                           ),
                           onPressed: () async {
@@ -195,7 +195,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                           width: 150,
                           height: 40,
                           child: CustomButton(
-                            buttonColor: const Color(0xff2D4CB9),
+                            buttonColor: const Color(0xff6fa2cd),
                             textColor: Colors.white,
                             text: 'Add',
                             onTap: () {

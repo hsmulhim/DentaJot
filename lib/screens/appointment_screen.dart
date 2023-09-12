@@ -2,13 +2,11 @@ import 'dart:io';
 
 import 'package:dental_proj/components/appointment_card.dart';
 import 'package:dental_proj/components/custom_header.dart';
-import 'package:dental_proj/components/text_field_widgets.dart';
 import 'package:dental_proj/extensions/navigation.dart';
 import 'package:dental_proj/screens/add_appointment_screen.dart';
 
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 String teethCase = "Normal";
@@ -118,7 +116,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff2D4CB9),
+        backgroundColor: const Color(0xff6fa2cd),
         elevation: 0,
         title: Row(
           children: [
@@ -200,7 +198,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               })(),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 180),
+              padding: const EdgeInsets.only(top: 180, left: 18),
               child: Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,

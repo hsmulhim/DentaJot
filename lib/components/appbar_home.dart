@@ -12,6 +12,7 @@ HomeAppBar() {
     print("profile $patientobj");
   }
   return AppBar(
+    automaticallyImplyLeading: false,
     elevation: 0,
     backgroundColor: const Color(0xfff2fbfd),
     title: Padding(
