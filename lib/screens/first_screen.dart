@@ -54,13 +54,19 @@ class _FirstScreenState extends State<FirstScreen> {
     return Scaffold(
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(8),
-        decoration: const BoxDecoration(color: Colors.transparent),
+        decoration: const BoxDecoration(
+          color: Color(0xff003253),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(4),
+            topRight: Radius.circular(4),
+          ),
+        ),
         child: GNav(
             selectedIndex: _selectedIndex,
             onTabChange: _navigatorFunction,
             gap: 8,
-            color: const Color(0xff003253),
-            activeColor: const Color(0xff076fe0),
+            color: const Color(0xffc6edfa),
+            activeColor: const Color(0xffc6edfa),
             // navigation bar padding
             tabs: const [
               GButton(

@@ -11,9 +11,11 @@ class TeethScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
+          backgroundColor: const Color(0xff003253),
           title: const Text('Image Click Example'),
         ),
-        body: Center(
+        body: const Center(
           child: Stack(
             children: [
               TeethUpDataWidget(),

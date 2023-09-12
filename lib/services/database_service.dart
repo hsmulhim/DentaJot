@@ -69,7 +69,7 @@ class SupabaseService {
 
     final response = await supabase
         .from('Patient')
-        .select('patient_name,patient_age,gender')
+        .select()
         .eq('patientId', user!.id)
         .single();
 
