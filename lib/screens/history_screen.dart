@@ -1,3 +1,4 @@
+import 'package:dental_proj/screens/appointment_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -68,36 +69,8 @@ class TimeLineScreen extends StatelessWidget {
     final List appontmentList = await Supabase.instance.client
         .from("Appointment")
         .select()
-        .eq('patientId', "e3ba839c-8e5e-4aec-8cda-aef123f41134");
+        .eq('patientId', userId);
     print(appontmentList);
     return appontmentList;
   }
-
-//   Future<List<Appointment>> fetchUserAppointments() async {
-//     List<Appointment> appointments = [
-//       Appointment(
-//         title: "Appointment 1",
-//         description: "Description of Appointment 1",
-//         date: DateTime(2023, 9, 15, 10, 0),
-//       ),
-//       Appointment(
-//         title: "Appointment 2",
-//         description: "Description of Appointment 2",
-//         date: DateTime(2023, 9, 20, 15, 30),
-//       ),
-//       Appointment(
-//         title: "Appointment 77",
-//         description: "Description of Appointment 2",
-//         date: DateTime(2023, 9, 20, 15, 30),
-//       ),
-//       Appointment(
-//         title: "Appointment 29",
-//         description: "Description of Appointment 2",
-//         date: DateTime(2023, 9, 20, 15, 30),
-//       ),
-//       // Add more appointments as needed
-//     ];
-
-//     return appointments;
-//   }
 }

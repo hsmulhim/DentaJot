@@ -4,6 +4,7 @@ import 'package:dental_proj/components/custom_header.dart';
 import 'package:dental_proj/components/custom_profile_ditails.dart';
 import 'package:dental_proj/extensions/navigation.dart';
 import 'package:dental_proj/models/patient_model.dart';
+import 'package:dental_proj/screens/signin_screen.dart';
 import 'package:dental_proj/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -28,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     Patient patientobj = Patient();
     if (box.hasData("patient")) {
-      patientobj = box.read("patient");
+      patientobj = Patient.fromJson(box.read("patient"));
       print("profile $patientobj");
     }
     log(patientobj.patientName.toString());
@@ -43,7 +44,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: () async {
               await supabase.auth.signOut();
               if (context.mounted) {
-                context.pop;
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignInScreen()),
+                    (route) => false);
               }
             },
           ),

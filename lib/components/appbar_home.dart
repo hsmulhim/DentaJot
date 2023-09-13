@@ -8,7 +8,8 @@ Patient patientobj = Patient();
 
 HomeAppBar() {
   if (box.hasData("patient")) {
-    patientobj = box.read("patient");
+    patientobj = Patient.fromJson(box.read("patient"));
+
     print("profile $patientobj");
   }
   return AppBar(

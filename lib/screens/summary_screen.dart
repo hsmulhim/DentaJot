@@ -287,14 +287,14 @@ class DateCard extends StatelessWidget {
             color: Color(0xff003253),
           ),
           child: const Text(
-            'November',
+            'September',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 13, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
         const Text(
-          '28',
+          '12',
           style: TextStyle(
               fontSize: 28, color: Colors.black, fontWeight: FontWeight.w600),
         ),

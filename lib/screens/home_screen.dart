@@ -31,7 +31,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final Offers offer;
   late final PageController pageController;
-  // final ScrollController _scrollController = ScrollController();
+
   int pageNo = 0;
 
   Timer? carasouelTmer;
@@ -63,16 +63,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getUserFunction() async {
     final userData = await SupabaseService().fetchUserData();
+    print("----->$userData");
+    patientobj = Patient.fromJson(userData);
+
     print("home $userData");
     setState(() {});
-
-    final patietobj = Patient.fromJson(userData);
-    box.write("patient", patietobj);
+    print("ddddddd>>>>>>>>>>>${patientobj.toJson()}");
+    box.write("patient", patientobj.toJson());
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
+    offersList.clear();
+    questionList.clear();
+    getUserFunction();
 
     for (var element in OffersData) {
       offersList.add(Offers.fromJson(element));
@@ -84,17 +90,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
     pageController = PageController(initialPage: 0, viewportFraction: 0.85);
     carasouelTmer = getTimer();
-
-    getUserFunction();
   }
 
   @override
   void dispose() {
     pageController.dispose();
-    offersList.clear();
-    questionList.clear();
+    // offersList.clear();
+    // questionList.clear();
+    // for (var element in OffersData) {
+    //   offersList.add(Offers.fromJson(element));
+    // }
 
-    super.dispose();
+    // for (var element in QuestionsData) {
+    //   questionList.add(Questions.fromJson(element));
+    // }
+
+    // pageController = PageController(initialPage: 0, viewportFraction: 0.85);
+    // super.dispose();
   }
 
   @override
@@ -122,17 +134,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       _launchUrl("${offersList[index].offerUrl}");
                     },
-
-                    // ------- timer for the cards slide -------
-
-                    // onPanDown: (d) {
-                    //   carasouelTmer?.cancel();
-                    //   carasouelTmer = null;
-                    // },
-                    // onPanCancel: () {
-                    //   carasouelTmer = getTimer();
-                    // },
-
                     child: Container(
                       margin: const EdgeInsets.only(
                           right: 8, left: 8, top: 24, bottom: 12),

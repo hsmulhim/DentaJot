@@ -31,7 +31,9 @@ class ProfileDetails extends StatelessWidget {
               ),
             ),
             onTap: () {
-              const MyReportScreen().push(context);
+              const MyReportScreen(
+                type: "report",
+              ).push(context);
             },
           ),
           kHSpace8,
@@ -54,7 +56,11 @@ class ProfileDetails extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              const MyReportScreen(
+                type: "x_ray",
+              ).push(context);
+            },
           ),
           kHSpace8,
           InkWell(
@@ -76,7 +82,11 @@ class ProfileDetails extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              const MyReportScreen(
+                type: "photo",
+              ).push(context);
+            },
           ),
         ],
       ),

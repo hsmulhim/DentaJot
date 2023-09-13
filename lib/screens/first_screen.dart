@@ -7,9 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import '../models/patient_model.dart';
-import '../services/database_service.dart';
-
 final box = GetStorage();
 
 class FirstScreen extends StatefulWidget {
@@ -21,14 +18,6 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   int _selectedIndex = 0;
-  getUserFunction() async {
-    final userData = await SupabaseService().fetchUserData();
-
-    setState(() {});
-
-    final patietobj = Patient.fromJson(userData);
-    box.write("patient", patietobj);
-  }
 
   void _navigatorFunction(int index) {
     setState(() {
@@ -39,7 +28,6 @@ class _FirstScreenState extends State<FirstScreen> {
   @override
   void initState() {
     super.initState();
-    getUserFunction();
   }
 
   final List<Widget> _pages = [

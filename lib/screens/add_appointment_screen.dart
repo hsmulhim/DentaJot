@@ -76,6 +76,10 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xff6fa2cd),
+        elevation: 0,
+      ),
       body: SafeArea(
           top: false,
           bottom: false,
@@ -87,7 +91,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 color: const Color(0xff6fa2cd),
               ),
               Positioned(
-                  top: 100,
+                  top: 20,
                   child: Container(
                     height: 740,
                     width: 390,

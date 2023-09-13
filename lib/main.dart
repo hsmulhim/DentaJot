@@ -1,9 +1,13 @@
 import 'package:dental_proj/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
+  final box = GetStorage();
+  box.erase();
   await Supabase.initialize(
     url: "https://mguwylgfdatsdadqsffy.supabase.co",
     anonKey:
