@@ -16,8 +16,8 @@ Tired of forgetting your dental procedures and struggling to recall them? Say he
 
 
 <h3>Team Members:</h3>
-Abdulelah Aljuraysi <br> (https://github.com/36nv)
-Reef Alhesayani <br>(https://github.com/reef-mohammad)
-Hessah almulhim <br>(https://github.com/hsmulhim)
-Maha Altamim <br>(https://github.com/iMaha0)
+[Abdulelah Aljuraysi] (https://github.com/36nv)
+[Reef Alhesayani] (https://github.com/reef-mohammad)
+[Hessah almulhim] (https://github.com/hsmulhim)
+[Maha Altamim] (https://github.com/iMaha0)
 
